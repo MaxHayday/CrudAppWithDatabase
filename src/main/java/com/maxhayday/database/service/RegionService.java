@@ -2,7 +2,7 @@ package com.maxhayday.database.service;
 
 import com.maxhayday.database.model.Region;
 import com.maxhayday.database.repository.RegionRepository;
-import com.maxhayday.database.repository.io.JavaIORegionRepositoryImpl;
+import com.maxhayday.database.repository.jdbc.JdbcRegionRepositoryImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class RegionService {
     private Region region;
 
     public RegionService() {
-        this.regionRepository = new JavaIORegionRepositoryImpl();
+        this.regionRepository = new JdbcRegionRepositoryImpl();
     }
 
 

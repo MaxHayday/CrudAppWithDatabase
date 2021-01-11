@@ -2,7 +2,7 @@ package com.maxhayday.database.service;
 
 import com.maxhayday.database.model.Post;
 import com.maxhayday.database.repository.PostRepository;
-import com.maxhayday.database.repository.io.JavaIOPostRepositoryImpl;
+import com.maxhayday.database.repository.jdbc.JdbcPostRepositoryImpl;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -14,7 +14,7 @@ public class PostService {
     private Post post;
 
     public PostService() {
-        this.postRepository = new JavaIOPostRepositoryImpl();
+        this.postRepository = new JdbcPostRepositoryImpl();
     }
 
     public Post getById(Long id) throws IOException, ParseException, SQLException, ClassNotFoundException {

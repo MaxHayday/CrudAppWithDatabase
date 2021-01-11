@@ -28,5 +28,3 @@ create table regions
 
 
 
-
--- INSERT INTO crud_app.user (name, surname, role, region_id) VALUES ('Max', 'Hayday', 'User',null );

@@ -28,9 +28,17 @@ public class UserController {
     private List<Post> postList;
 
     public UserController() {
-        userService = new UserService();
-        postService = new PostService();
-        regionService = new RegionService();
+        try {
+            userService = new UserService();
+            postService = new PostService();
+            regionService = new RegionService();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void save(Long id, String firstName, String lastName, List<String> posts, String regionStr, String roleStr) throws SQLException, IOException, ClassNotFoundException {
