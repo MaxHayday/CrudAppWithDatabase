@@ -15,7 +15,15 @@ public class PostController {
     private Post post;
 
     public PostController() {
-        postService = new PostService();
+        try {
+            postService = new PostService();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void save(Long id, String content) {

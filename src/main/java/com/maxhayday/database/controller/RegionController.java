@@ -17,6 +17,7 @@ public class RegionController {
     public RegionController() {
         try {
             userService = new UserService();
+            regionService = new RegionService();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (IOException e) {
@@ -24,7 +25,6 @@ public class RegionController {
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        regionService = new RegionService();
     }
 
     public void save(Long id, String name) {

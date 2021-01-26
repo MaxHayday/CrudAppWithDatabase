@@ -13,7 +13,7 @@ public class RegionService {
     private final RegionRepository regionRepository;
     private Region region;
 
-    public RegionService() {
+    public RegionService() throws SQLException, IOException, ClassNotFoundException {
         this.regionRepository = new JdbcRegionRepositoryImpl();
     }
 

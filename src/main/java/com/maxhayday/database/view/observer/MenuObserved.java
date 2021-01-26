@@ -6,9 +6,6 @@ import com.maxhayday.database.ConnectionUtils;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -16,36 +13,13 @@ import java.util.List;
 
 
 public class MenuObserved implements Observed {
-    private static final Path properties = Paths.get("src/main/resources/db/mysql.properties");
     private Long id = 0L;
-    //    public static final String DATABASE_URL = "jdbc:mysql://localhost:3306/crud_app";
-//    public static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-//
-//    public static final String USER = "root";
-//    public static final String PASSWORD = "";
-    //private BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     private String data;
-//    public static Connection connection = null;
-//    public static Statement statement = null;
-//    public static PreparedStatement preparedStatement = null;
 
     private List<ViewObserver> subscribers = new ArrayList<>();
-//    private ArrayList<String> dbProperties = new ArrayList<>();
-
-//    private void readProperties() throws IOException {
-//        try (BufferedReader reader = Files.newBufferedReader(properties)) {
-//            while (reader.ready()) {
-//                dbProperties.add(reader.readLine());
-//            }
-//        }
-//    }
 
     public void showMenu() throws IOException, ParseException, SQLException, ClassNotFoundException {
-        //readProperties();
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-//            Class.forName(dbProperties.get(1));
-//            connection = DriverManager.getConnection(dbProperties.get(0), dbProperties.get(2), dbProperties.get(3));
-//            statement = connection.createStatement();
             do {
                 System.out.println("\n----------------------------------------- Choose one of options ----------------------------------------");
                 System.out.println("1: Create user;");
@@ -124,15 +98,6 @@ public class MenuObserved implements Observed {
                 }
             } while (!data.equals("exit"));
         } finally {
-//            if (statement != null) {
-//                statement.close();
-//            }
-//            if (preparedStatement != null) {
-//                preparedStatement.close();
-//            }
-//            if (connection != null) {
-//                connection.close();
-//            }
             ConnectionUtils.closeConnection();
             System.out.println("Connection is closed.");
         }

@@ -5,6 +5,7 @@ import com.maxhayday.database.SqlQueries;
 import com.maxhayday.database.model.Region;
 import com.maxhayday.database.repository.RegionRepository;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,10 @@ import static com.maxhayday.database.ConnectionUtils.preparedStatement;
 
 public class JdbcRegionRepositoryImpl implements RegionRepository {
     private Region region;
+
+    public JdbcRegionRepositoryImpl() throws SQLException, IOException, ClassNotFoundException {
+        ConnectionUtils connectionUtils = new ConnectionUtils();
+    }
 
     @Override
     public Region getById(Long id) throws SQLException {
@@ -42,7 +47,7 @@ public class JdbcRegionRepositoryImpl implements RegionRepository {
         preparedStatement = ConnectionUtils.getPreparedStatement(SqlQueries.UPDATE_REGION.getSQL() + region.getId());
         preparedStatement.setString(1, region.getName());
         preparedStatement.executeUpdate();
-        return null;
+        return getById(region.getId());
     }
 
     @Override

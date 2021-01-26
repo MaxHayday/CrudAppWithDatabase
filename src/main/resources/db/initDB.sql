@@ -13,17 +13,17 @@ create table users
 );
 create table posts
 (
-    id      bigint auto_increment                             primary key,
-    content varchar(255)                                      not null,
-    created timestamp default now()                           not null,
-    updated timestamp default '0000-00-00 00:00:00.000000'    not null,
-    user_id bigint                                            null
+    id      bigint auto_increment primary key,
+    content varchar(255)                                   not null,
+    created timestamp default now()                        not null,
+    updated timestamp default '0000-00-00 00:00:00.000000' not null,
+    user_id bigint                                         null
 );
 
 create table regions
 (
-    id      bigint auto_increment                             primary key,
-    name    varchar(45)                                       not null
+    id   bigint auto_increment primary key,
+    name varchar(45) not null
 );
 
 

@@ -13,7 +13,7 @@ public class PostService {
     private final PostRepository postRepository;
     private Post post;
 
-    public PostService() {
+    public PostService() throws SQLException, IOException, ClassNotFoundException {
         this.postRepository = new JdbcPostRepositoryImpl();
     }
 

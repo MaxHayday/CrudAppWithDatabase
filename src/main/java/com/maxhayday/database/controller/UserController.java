@@ -4,7 +4,6 @@ import com.maxhayday.database.model.Post;
 import com.maxhayday.database.model.Region;
 import com.maxhayday.database.model.Role;
 import com.maxhayday.database.model.User;
-import com.maxhayday.database.repository.UserRepository;
 import com.maxhayday.database.service.PostService;
 import com.maxhayday.database.service.RegionService;
 import com.maxhayday.database.service.UserService;
@@ -49,7 +48,7 @@ public class UserController {
         user = User.builder().id(id)
                 .name(firstName)
                 .lastName(lastName)
-                .posts(postList)
+                .posts(null)
                 .region(region)
                 .role(checkRole(roleStr))
                 .build();
@@ -103,7 +102,9 @@ public class UserController {
     public void deleteById(Long id) {
         try {
             user = userService.getById(id);
-            regionService.deleteById(user.getRegion().getId());
+            if (user.getRegion() != null) {
+                regionService.deleteById(user.getRegion().getId());
+            }
             postList = user.getPosts();
             for (Post p :
                     postList) {

@@ -48,40 +48,35 @@ public class JdbcUserRepositoryImpl implements UserRepository {
                     .region(region)
                     .role(Role.valueOf(resultSet.getString("users.role")))
                     .build();
-
-            System.out.println(resultSet.getLong("users.id") + " " + resultSet.getString("users.name") + " " +
-                    resultSet.getString("users.surname") + " " + resultSet.getString("users.role") + " "
-                    + resultSet.getLong("users.region_id") + " " + resultSet.getLong("posts.id"));
         }
         return user;
     }
 
     @Override
-    public User save(User user) throws SQLException{
+    public User save(User user) throws SQLException {
         preparedStatement = ConnectionUtils.getPreparedStatement(SqlQueries.SAVE_USER.getSQL());
         preparedStatement.setString(1, user.getName());
         preparedStatement.setString(2, user.getLastName());
         preparedStatement.setString(3, user.getRole().name());
         preparedStatement.setLong(4, user.getRegion().getId());
         preparedStatement.executeUpdate();
-        preparedStatement = ConnectionUtils.connection.prepareStatement(SqlQueries.GET_USER_BY_ID.getSQL());
-        preparedStatement.setLong(1, user.getId());
+        preparedStatement = ConnectionUtils.connection.prepareStatement(SqlQueries.GET_LAST_ADDED_USER.getSQL());
+//        preparedStatement.setLong(1, user.getId());
         ResultSet resultSet = preparedStatement.executeQuery();
         resultSet.last();
         List<Post> postList = new ArrayList<>();
-        postList.add(Post.builder().id(resultSet.getLong("posts.id")).content(resultSet.getString("posts.content"))
-                .created(resultSet.getTimestamp("posts.created")).updated(resultSet.getTimestamp("posts.updated")).build());
-        Region region = Region.builder().id(resultSet.getLong("regions.id")).name(resultSet.getString("regions.name")).build();
+//        postList.add(Post.builder().id(resultSet.getLong("posts.id")).content(resultSet.getString("posts.content"))
+//                .created(resultSet.getTimestamp("posts.created")).updated(resultSet.getTimestamp("posts.updated")).build());
+        //       Region region = Region.builder().id(resultSet.getLong("regions.id")).name(resultSet.getString("regions.name")).build();
         user = User.builder()
                 .id(resultSet.getLong("id"))
                 .name(resultSet.getString("name"))
                 .lastName(resultSet.getString("surname"))
-                .posts(postList)
-                .region(region)
+                .posts(null)
+                .region(null)
                 .role(Role.valueOf(resultSet.getString("role")))
                 .build();
         return user;
-
     }
 
     @Override
@@ -92,7 +87,7 @@ public class JdbcUserRepositoryImpl implements UserRepository {
         preparedStatement.setString(3, user.getRole().name());
         preparedStatement.setLong(4, user.getId());
         preparedStatement.executeUpdate();
-        return null;
+        return getById(user.getId());
     }
 
     @Override
@@ -125,10 +120,6 @@ public class JdbcUserRepositoryImpl implements UserRepository {
             if (users.size() > 0 && users.get(users.size() - 1).getId() != resultSet.getLong("users.id")) {
                 users.add(user);
             }
-
-            System.out.println(resultSet.getLong("users.id") + " " + resultSet.getString("users.name") + " " +
-                    resultSet.getString("users.surname") + " " + resultSet.getString("users.role") + " "
-                    + resultSet.getLong("users.region_id") + " " + resultSet.getLong("posts.id"));
         }
         return users;
     }

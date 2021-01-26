@@ -1,13 +1,7 @@
 package com.maxhayday.database;
 
-import java.net.PortUnreachableException;
 
 public enum SqlQueries {
-//    SELECT emp_name, dept_name FROM Employee e
-//    JOIN Register r ON e.emp_id=r.emp_id
-//    JOIN Department d ON r.dept_id=d.dept_id;
-
-    //SELECT * FROM crud_app.users WHERE id=
     GET_USER_BY_ID("SELECT users.id, " +
             "       users.name, " +
             "       users.surname, " +
@@ -23,6 +17,12 @@ public enum SqlQueries {
             "FROM users " +
             "         INNER JOIN posts ON posts.user_id = users.id AND posts.user_id = ?" +
             "         LEFT JOIN regions ON regions.id = users.region_id"),
+    GET_LAST_ADDED_USER("SELECT users.id, " +
+            "       users.name, " +
+            "       users.surname, " +
+            "       users.role, " +
+            "       users.region_id " +
+            "       FROM users"),
     SAVE_USER("INSERT INTO crud_app.users (name,surname,role,region_id) VALUES (?,?,?,?)"),
     UPDATE_USER("UPDATE crud_app.users SET name=?,surname=?,role=? WHERE id=?"),
     GET_ALL_USERS("SELECT users.id, " +
@@ -38,8 +38,9 @@ public enum SqlQueries {
             "       regions.id, " +
             "       regions.name " +
             "FROM users " +
-            "         INNER JOIN posts ON posts.user_id = users.id" +
-            "         LEFT JOIN regions ON regions.id = users.region_id"),
+            "         LEFT JOIN posts ON posts.user_id = users.id " +
+            "         LEFT JOIN regions ON regions.id = users.region_id " +
+            "ORDER BY users.id ASC "),
     DELETE_USER_BY_ID("DELETE FROM crud_app.users WHERE id="),
 
     GET_REGION_BY_ID("SELECT * FROM crud_app.regions WHERE id="),
