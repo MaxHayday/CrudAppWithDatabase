@@ -2,6 +2,7 @@ truncate table users;
 truncate table posts;
 truncate table regions;
 
+
 INSERT INTO crud_app.users (name, surname, role, region_id)
 VALUES ('Max', 'Hayday', 'USER', 1);
 INSERT INTO crud_app.users (name, surname, role, region_id)
